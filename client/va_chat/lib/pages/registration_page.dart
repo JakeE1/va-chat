@@ -139,7 +139,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               image: _image != null
                   ? FileImage(_image)
                   : NetworkImage(
-                      "https://cdn0.iconfinder.com/data/icons/occupation-002/64/programmer-programming-occupation-avatar-512.png"),
+                      "https://cdn4.iconfinder.com/data/icons/people-avatar-filled-outline/64/boy_people_avatar_man_male_teenager_hood-512.png"),
             ),
           ),
         ),
@@ -217,34 +217,38 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget _registerButton() {
-    return _auth.status != AuthStatus.Authenticating
-        ? Container(
-            height: _deviceHeight * 0.06,
-            width: _deviceWidth,
-            child: MaterialButton(
-              onPressed: () {
-                if (_formKey.currentState.validate() && _image != null) {
-                  _auth.registerUserWithEmailAndPassword(_email, _password,
-                      (String _uid) async {
-                    var _result = await CloudStorageService.instance
-                        .uploadUserImage(_uid, _image);
-                    var _imageURL = await _result.ref.getDownloadURL();
-                    await DBService.instance
-                        .createUserInDB(_uid, _name, _email, _imageURL);
-                  });
-                }
-              },
-              color: Colors.blue,
-              child: Text(
-                "Register",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-              ),
-            ),
-          )
-        : Align(
-            alignment: Alignment.center,
-            child: CircularProgressIndicator(),
-          );
+    var _imageURL = '';
+
+    return Container(
+      height: _deviceHeight * 0.06,
+      width: _deviceWidth,
+      child: MaterialButton(
+        onPressed: () {
+          if (_formKey.currentState.validate()) {
+            _auth.registerUserWithEmailAndPassword(_email, _password,
+                (String _uid) async {
+              if (_image != null) {
+                var _result = await CloudStorageService.instance
+                    .uploadUserImage(_uid, _image);
+                _imageURL = await _result.ref.getDownloadURL();
+              }
+              await DBService.instance.createUserInDB(
+                  _uid,
+                  _name,
+                  _email,
+                  _imageURL.isEmpty
+                      ? 'https://cdn4.iconfinder.com/data/icons/aami-web-internet/64/aami14-40-512.png'
+                      : _imageURL);
+            });
+          }
+        },
+        color: Colors.blue,
+        child: Text(
+          "Register",
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+        ),
+      ),
+    );
   }
 
   Widget _backToLoginPageButton() {

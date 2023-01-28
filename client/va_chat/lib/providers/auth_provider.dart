@@ -24,23 +24,23 @@ class AuthProvider extends ChangeNotifier {
 
   AuthProvider() {
     _auth = FirebaseAuth.instance;
-    _checkCurrentUserIsAuthenticated();
+   // _checkCurrentUserIsAuthenticated();
   }
 
-  void _autoLogin() async {
-    if (user != null) {
-      await DBService.instance.updateUserLastSeenTime(user.uid);
-      return NavigationService.instance.navigateToReplacement("home");
-    }
-  }
+  // void _autoLogin() async {
+  //   if (user != null) {
+  //     await DBService.instance.updateUserLastSeenTime(user.uid);
+  //     return NavigationService.instance.navigateToReplacement("home");
+  //   }
+  // }
 
-  void _checkCurrentUserIsAuthenticated() async {
-    user = await _auth.currentUser();
-    if (user != null) {
-      notifyListeners();
-      await _autoLogin();
-    }
-  }
+  // void _checkCurrentUserIsAuthenticated() async {
+  //   user = await _auth.currentUser();
+  //   if (user != null) {
+  //     notifyListeners();
+  //     await _autoLogin();
+  //   }
+  // }
 
   void loginUserWithEmailAndPassword(String _email, String _password) async {
     status = AuthStatus.Authenticating;
@@ -51,7 +51,6 @@ class AuthProvider extends ChangeNotifier {
       user = _result.user;
       status = AuthStatus.Authenticated;
       SnackBarService.instance.showSnackBarSuccess("Welcome, ${user.email}");
-      await DBService.instance.updateUserLastSeenTime(user.uid);
       NavigationService.instance.navigateToReplacement("home");
     } catch (e) {
       status = AuthStatus.Error;
@@ -68,11 +67,13 @@ class AuthProvider extends ChangeNotifier {
     try {
       AuthResult _result = await _auth.createUserWithEmailAndPassword(
           email: _email, password: _password);
+      print('aaaaaaaaaaaaaaaaaaaaaaa');
+      print(_result);
       user = _result.user;
       status = AuthStatus.Authenticated;
       await onSuccess(user.uid);
       SnackBarService.instance.showSnackBarSuccess("Welcome, ${user.email}");
-      await DBService.instance.updateUserLastSeenTime(user.uid);
+      //await DBService.instance.updateUserLastSeenTime(user.uid);
       NavigationService.instance.goBack();
       NavigationService.instance.navigateToReplacement("home");
     } catch (e) {

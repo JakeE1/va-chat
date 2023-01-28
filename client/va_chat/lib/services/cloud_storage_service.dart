@@ -10,8 +10,6 @@ class CloudStorageService {
   StorageReference _baseRef;
 
   String _profileImages = "profile_images";
-  String _messages = "messages";
-  String _images = "images";
 
   CloudStorageService() {
     _storage = FirebaseStorage.instance;
