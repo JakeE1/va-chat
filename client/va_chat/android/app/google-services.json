@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1087761741935",
+    "project_id": "va-chat-2c288",
+    "storage_bucket": "va-chat-2c288.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087761741935:android:5b3c76defd64a65fb3f59a",
+        "android_client_info": {
+          "package_name": "com.example.va_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087761741935-p2q7teevo668lij52f5lo5v6abokfnud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg4DcwBgFur6adxsAuTFXvHACNyB46rg0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087761741935-p2q7teevo668lij52f5lo5v6abokfnud.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1087761741935-b25ibs0q2pe3l07vn62fbdvbv3gkop20.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vaChat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
